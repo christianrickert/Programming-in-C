@@ -2,13 +2,10 @@
 
 int main(int argc, char const *argv[])
 {
-    int a = 25, b = 5, c = 10, d = 7;
+    float celsius, fahrenheit = 27;
 
-    printf("a %% b = %i\n", a % b);
-    printf("a %% c = %i\n", a % c);
-    printf("a %% d = %i\n", a % d);
-    printf("a / d * d + a %% d = %i\n",
-            a / d * d + a % d);
+    celsius = (fahrenheit - 32) / 1.8;
 
+    printf("%g degrees fahrenheit is %g degrees celsius.\n", fahrenheit, celsius);
     return 0;
 }
