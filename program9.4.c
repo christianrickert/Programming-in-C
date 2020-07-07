@@ -15,7 +15,7 @@ struct date dateUpdate(struct date today)
 {
     struct date tomorrow;
     int numberOfDays(struct date d);
-    
+
     if ( today.day != numberOfDays(today) )
     {
         tomorrow.day = today.day + 1;
