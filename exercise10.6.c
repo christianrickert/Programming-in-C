@@ -38,8 +38,7 @@ void removeString(char text[], const int start, const int length)
 
 int main(int argc, char const *argv[])
 {
-	/* arrays are passed by value, simple dataypes are passed by value,
-	   i.e. arrays are manipulated by functions, other variables are not */
+	/* arrays are passed by reference, simple dataypes are passed by value */
 	void removeString(char text[], const int start, const int length);
 	int start = 4;
 	int length = 6;
