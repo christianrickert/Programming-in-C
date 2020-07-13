@@ -15,7 +15,7 @@ int stringLength(const char string[])
 }
 
 // function to remove a character string from another character string
-void removeString(char text[], const int start, const int length, char result[])
+void removeString(char text[], const int start, const int length)
 {
 	int i = 0;
 	int textLength = stringLength(text);
@@ -24,30 +24,30 @@ void removeString(char text[], const int start, const int length, char result[])
 	{
 		if ( i < start )
 		{
-			result[i] = text[i];
+			text[i] = text[i];
 		}
 		else if ( i >= (start + length) )
 		{
-			result[(i - length)] = text[i];
+			text[(i - length)] = text[i];
 		}
 		++i;
 	}
 	while ( i < textLength );
-	result[i + 1] = '\0';  // terminate string
+	text[i + 1] = '\0';  // terminate string
 }
 
 int main(int argc, char const *argv[])
 {
-	/* arrays are manipulated by functions, while simple datatypes are not */
-	void removeString(char text[], const int start, const int length, char result[]);
+	/* arrays are passed by value, simple dataypes are passed by value,
+	   i.e. arrays are manipulated by functions, other variables are not */
+	void removeString(char text[], const int start, const int length);
 	int start = 4;
 	int length = 6;
 	char text[] = "the wrong son under the sun";
-	char result[81];
 
 	printf("%s\n", text);
-	removeString(text, start, length, result);
-	printf("%s\n", result);
+	removeString(text, start, length);
+	printf("%s\n", text);
 
 	return 0;
 }
