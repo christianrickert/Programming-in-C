@@ -15,25 +15,23 @@ int stringLength(const char string[])
 }
 
 // function to remove a character string from another character string
-void removeString(char text[], const int start, const int length)
+void removeString(char source[], const int start, const int length)
 {
 	int i = 0;
-	int textLength = stringLength(text);
+	int sourceLength = stringLength(source);
 	
 	do
 	{
 		if ( i < start )
 		{
-			text[i] = text[i];
+			source[i] = source[i];
 		}
-		else if ( i >= (start + length) )
-		{
-			text[(i - length)] = text[i];
-		}
+		else if ( i >= start )
+			source[i] = source[(i + length)];
 		++i;
 	}
-	while ( i < textLength );
-	text[i + 1] = '\0';  // terminate string
+	while ( i < (sourceLength - length) );
+	source[i] = '\0';  // terminate string
 }
 
 int main(int argc, char const *argv[])
