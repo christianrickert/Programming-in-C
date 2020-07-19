@@ -37,7 +37,7 @@ void entrySwap(struct entry dictionary[], int i1, int i2)
 // function to sort a dictionary, basically a bubble sort algorithm
 void dictionarySort(struct entry dictionary[], const int entries)
 {
-	int i, j, k;
+	int i, j;
 	int compareStrings(const char s1[], const char s2[]);
 
 	for (i = 0; i < entries; ++i)
@@ -70,9 +70,7 @@ int main(int argc, char const *argv[])
 	  {"tomato", "like a potato"},
 	  {"apple", "fruit"}, };
 
-	char word[10];
 	int entries = 5;
-	int entry;
 	void dictionarySort(struct entry dictionary[], const int entries);
 	void dictionaryPrint(struct entry dictionary[], const int entries);
 	dictionaryPrint(dictionary, entries);
