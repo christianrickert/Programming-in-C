@@ -1,4 +1,5 @@
-// Function to insert a new entry into a linked list
+// Function to insert a new entry into a linked list using pointers
+
 #include <stdio.h>
 
 struct entry
@@ -7,15 +8,11 @@ struct entry
     struct entry *next;
 };
 
-void insertEntry(struct entry *newPtr, struct entry *posPtr)
+void insertEntry(struct entry *newPtr, struct entry *listPtr)
 {
-    struct entry *tmpPtr = newPtr;
-
-    while ( tmpPtr != posPtr && posPtr != (struct entry *) 0 )
-    {
-        tmpPtr = tmpPtr->next;
-    }
-
+    struct entry *tmpPtr = listPtr->next;  // remember following element or null pointer
+    listPtr->next = newPtr;  // link previous element with new element
+    newPtr->next = tmpPtr;  // link new element with following element or null pointer
 }
 
 int main(int argc, char const *argv[])
@@ -24,15 +21,16 @@ int main(int argc, char const *argv[])
     struct entry n1, n2, n3, n4;
     struct entry *listPtr = &n1;
 
-    n1.value = 100;
+    n1.value = 100;  // start of linked list
     n2.value = 200;
-    n3.value = 300;
+    n3.value = 300;  // unlinked element
     n4.value = 400;
 
     n1.next = &n2;
     n2.next = &n4;
-    // n3 is not part of the linked list yet
-    n4.next = (struct entry *) 0;  // mark list end with null pointer
+    n4.next = (struct entry *) 0;  // end of linked list
+
+    insertEntry(&n3, &n2);
 
     while ( listPtr != (struct entry *) 0 )
     {
