@@ -10,9 +10,8 @@ struct entry
 
 void insertEntry(struct entry *newPtr, struct entry *listPtr)
 {
-    struct entry *tmpPtr = listPtr->next;  // remember following element or null pointer
-    listPtr->next = newPtr;  // link previous element with new element
-    newPtr->next = tmpPtr;  // link new element with following element or null pointer
+    newPtr->next = listPtr->next;  // link new entry to following entry
+    listPtr->next = newPtr;  // insert new entry after current entry
 }
 
 int main(int argc, char const *argv[])
@@ -22,12 +21,14 @@ int main(int argc, char const *argv[])
     struct entry *listPtr = &n1;
 
     n1.value = 100;  // start of linked list
-    n2.value = 200;
-    n3.value = 300;  // unlinked element
-    n4.value = 400;
-
     n1.next = &n2;
+
+    n2.value = 200;
     n2.next = &n4;
+
+    n3.value = 300;  // unlinked element
+
+    n4.value = 400;
     n4.next = (struct entry *) 0;  // end of linked list
 
     insertEntry(&n3, &n2);
