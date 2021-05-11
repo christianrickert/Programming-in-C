@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
                        44, -3, -9, 12, 17, 22, 6, 11 };
     void sort(int a[], int n);
 
-    printf("The array before teh sort:\n");
+    printf("The array before the sort:\n");
 
     for (i = 0; i < 16; ++i)
         printf("%i ", array[i]);
