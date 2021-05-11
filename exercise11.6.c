@@ -1,4 +1,9 @@
-// Create a doubly linked list and print out the elements of the list
+// The functions 'insertEntry' and 'removeEntry' are implemented for
+// a doubly linked list. The 'removeEntry' function can now take as
+// its argument a direct pointer to the entry to be removed from the
+// list: Its 'prev' pointer can be used to redirect the 'next' pointer
+// of the preceeding list element to its 'next' pointer - bypassing
+// the entry to be removed and thus removing it from the list.
 
 #include <stdio.h>
 
