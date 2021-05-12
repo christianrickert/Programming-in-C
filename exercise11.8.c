@@ -19,7 +19,7 @@ void sort3(int *a, int *b, int *c, struct linkedInt *left)
     right = left->next;
     while ( right != (struct linkedInt *) 0 )  // right list element
     {
-      if ( left->value > right->value )  // compare list elements
+      if ( left->value > right->value )  // exchange list elements
       {
         temp = left->value;
         left->value = right->value;
