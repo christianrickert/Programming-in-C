@@ -1,4 +1,4 @@
-// Program to illustrate teh %s scanf format characters
+// Program to illustrate the %s scanf format characters
 
 #include <stdio.h>
 
