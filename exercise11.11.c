@@ -5,12 +5,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-  struct date
-  {
-    int month;
-    int day;
-    int year;
-  };
+struct date
+{
+  int month;
+  int day;
+  int year;
+};
 
 // Function to calculate tomorrow's date
 struct date dateUpdate(struct date *today)
