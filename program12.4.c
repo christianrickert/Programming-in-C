@@ -24,7 +24,6 @@ unsigned int rotate(unsigned int value, int n)
 
     // scale down the shift count ot a defined range
     if ( n > 0 )
-
         n = n % 32;
     else
         n = -(-n % 32);
