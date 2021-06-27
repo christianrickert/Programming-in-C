@@ -14,19 +14,19 @@ unsigned int isArithmeticRightShift(int number)
        The sign bit will therefore be inverted and
        the number become positive (sign bit is 0) */
 
-    shifted = number >> 1;    // right shift by 1
+    shifted = number >> 1;  // right shift by 1
 
-    if ( shifted >= 0 )
+    if ( shifted >= 0 )     // arithmetic right shift
         result = 1;
     else
-        result = 0;
+        result = 0;         // logical right shift
 
     return result;
 }
 
 int main(int argc, char const *argv[])
 {
-    int number = -0xffffffff;
+    int number = -0xffffffffu;
     unsigned int isArithmeticRightShift(int number);
 
     if ( isArithmeticRightShift(number) )

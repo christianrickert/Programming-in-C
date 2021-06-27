@@ -11,8 +11,8 @@ unsigned int int_size()
     // count the left shifts of a zero for the rightmost bit
     // until we finally flip the sign bit to a positive value
     unsigned int result = 1;
-    int value = ~0; // 1... (?) 1111
-    value &= ~1;    // 1... (?) 1110
+    int value = ~0; // 1 .... (?) 1111
+    value &= ~1;    // 1 .... (?) 1110
 
     while ( value < 0 )
     {
