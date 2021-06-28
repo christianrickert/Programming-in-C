@@ -31,7 +31,7 @@ unsigned int bit_test(unsigned int number, unsigned int bit)
     // We create a bitmask with an on bit at the test bit location:
     // Then we AND the number with our bit mask. The result will either
     // be greater than zero (bit on) or the result will be zero (bit off)
-    unsigned int intsize = int_size();  // 32 bits, system dependent
+    unsigned int intsize = int_size();   // 32 bits, system dependent
     unsigned int bitmask = 0x0001u;     // minimum bit pattern, i.e. word
 
     bitmask <<= (intsize - bit - 1);    // shift 1 to test bit position
@@ -42,22 +42,40 @@ unsigned int bit_test(unsigned int number, unsigned int bit)
         return 0;
 }
 
-unsigned int bit_set()
+unsigned int bit_set(unsigned int number, unsigned int bit)
 {
-    // TODO
+    // Same logic as with the "bit_test" function. But instead of using AND
+    // with the number and the bit mask, we're going to return the result of
+    // using the OR operator with the two bit patterns. In effect, the bit n
+    // will either remain on or be turned on after the bit masking operation.
+    unsigned int intsize = int_size();  // 32 bits, system dependent
+    unsigned int bitmask = 0x0001u;     // minimum bit pattern, i.e. word
+
+    bitmask <<= (intsize - bit - 1);    // shift 1 to test bit position
+
+    return number | bitmask;
 }
 
 int main(int argc, char const *argv[])
 {
     unsigned int int_size();
     unsigned int bit_test(unsigned int number, unsigned int bit);
-    unsigned int bit_set();
-    unsigned int number = 0xF777EE22u;
-    char bitpattern[] = "1111 0111 0111 0111 1110 1110 0010 0010";
+    unsigned int bit_set(unsigned int number, unsigned int bit);
+    unsigned int bit;
+    unsigned int intsize = int_size();
+    unsigned int number = 0x8CEF731u;
+    char bitpattern[] = "0000 1000 1100 1110 1111 0111 0011 0001";
 
-    for (int i = 0; i < 32; ++i)
+    for (int i = 0; i < intsize; ++i)
     {
-        printf("bits #0-31: %s, bit #%2i: %s\n", bitpattern, i, bit_test(number, i) ? "on" : "off");
+        printf("bits #%i-%i: %s, bit #%2i: %s\n", 0, intsize - 1, bitpattern, i, bit_test(number, i) ? "on" : "off");
+    }
+
+    number = 0;
+    for (int i = 1; i < intsize; ++i)
+    {
+        bit = intsize - i;
+        printf("number: %i, with bit #%2i set to on: %i\n", number, bit, bit_set(number, bit));
     }
 
     return 0;
