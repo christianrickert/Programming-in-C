@@ -32,9 +32,9 @@ unsigned int bit_test(unsigned int number, unsigned int bit)
     // Then we AND the number with our bit mask. The result will either
     // be greater than zero (bit on) or the result will be zero (bit off)
     unsigned int intsize = int_size();  // 32 bits, system dependent
-    unsigned int bitmask = 0x1u;
+    unsigned int bitmask = 0x0001u;     // minimum bit pattern, i.e. word
 
-    bitmask <<= (intsize - bit - 1);  // shift 1 to test bit position
+    bitmask <<= (intsize - bit - 1);    // shift 1 to test bit position
 
     if ( (number & bitmask) > 0 )
         return 1;
