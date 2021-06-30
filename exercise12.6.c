@@ -51,29 +51,32 @@ unsigned int bitpat_search(unsigned int source, unsigned int pattern, unsigned i
     // Let's check both source and pattern bit-wise to see if we've got a full match.
     // However, we also have to check for short sources that cannot fit the pattern or
     // for values of n larger than 'int_size'.
-    unsigned int intsize = int_size();
-    unsigned int matched = 0;
-    unsigned int result = -1;
-    unsigned int search = 0x0u;
+    unsigned int end, hits, intsize = int_size(), result = -1, search, start;
 
     // validate user input
     if ( source >= pattern && n > 0 && n <= intsize )
     {
-        // slide the (full) pattern from left to right through the source
-        for (int s = (intsize - n); result == -1 && s > 0; --s)
+        // slide the pattern from left to right through the source
+        for (int s = (intsize - n); result == -1 && s >= 0; --s)
         {
-            search = pattern << s;
-            matched = 0;
+            search = pattern << s;    // shift pattern left by s bits
+
+            start = intsize - n - s;  // start comparison at this index
+            end = start + n - 1;      // end comparison at this index
+            hits = 0;                 // number of matching bits
 
             // compare source and pattern bit-wise from left to right
-            for (int i = (intsize - s - 1), lim = i + n; i < lim; ++i)
+            for (int i = start ; i <= end; ++i)
             {
                 if ( bit_test(source, i) == bit_test(search, i) )
-                    matched += 1;   // count matching bits
+                    hits += 1;
             }
 
-            if ( matched == n )     // compare number of matching bits with n
-                result = s;
+            printf("bits: %i-%i,\thits: %i\n", start, end, hits);
+
+            // report leftmost index, if we have a match
+            if ( hits == n )
+                result = start;
         }
     }
 
@@ -85,9 +88,8 @@ int main(int argc, char const *argv[])
     unsigned int bit_test(unsigned int number, unsigned int bit);
     unsigned int int_size();
     unsigned int bitpat_search(unsigned int source, unsigned int pattern, unsigned int n);
-    unsigned int source = 0xe1f4;   // 1110 0001 1111 0100
-    unsigned int pattern = 0x5;     // 0101
-
+    unsigned int source = 0xe1d4;   // 0000 0000 0000 0000 1110 0001 1101 0100
+    unsigned int pattern = 0x5;     // 0000 0000 0000 0000 0000 0000 0000 0101
     printf("%i\n", bitpat_search(source, pattern, 3));
 
     return 0;
