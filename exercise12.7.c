@@ -23,54 +23,48 @@ unsigned int int_size()
     return result;
 }
 
-unsigned int bit_test(unsigned int number, unsigned int bit)
+// Function to rotate an unsigned int left or right
+unsigned int rotate(unsigned int value, int n)
 {
-    // We create a bitmask with an on bit at the test bit location:
-    // Then we AND the number with our bit mask. The result will either
-    // be greater than zero (bit on) or the result will be zero (bit off)
-    unsigned int intsize = int_size();   // 32 bits, system dependent
-    unsigned int bitmask = 0x0001u;     // minimum bit pattern, i.e. word
+    unsigned int result, bits, intsize = int_size();
 
-    bitmask <<= (intsize - bit - 1);    // shift 1 to test bit position
-
-    if ( (number & bitmask) > 0 )
-        return 1;
+    // scale down the shift count ot a defined range
+    if ( n > 0 )
+        n = n % intsize;
     else
-        return 0;
-}
+        n = -(-n % intsize);
 
+    if ( n == 0 )
+        result = value;
+    else if ( n > 0 )
+    {   // left rotate
+        bits = value >> (intsize - n);
+        result = value << n | bits;
+    }
+    else
+    {   // right rotate
+        n = -n;
+        bits = value << (intsize - n);
+        result = value >> n | bits;
+    }
+
+    return result;
+}
 
 unsigned int bitpat_get(unsigned int source, int start, unsigned int count)
 {
-    // We're going to make use of both the 'int_size' and the 'bit_test' functions:
-    // in analogy to the previously developed 'bitpat_get' function.
-    unsigned int end, hits, intsize = int_size(), result = -1, search, start;
+    // We're going to make use of both the 'int_size' and the 'rotate' function:
+    // First, we're going to "truncate" the source pattern by shifting all bits
+    // to the right and then rotate the bits to the left, until the pattern
+    // is fully right-aligned. This works because the bits filled in from the
+    // right are guaranteed to be zeros (in contrast to the bits filled in
+    // from the left, which are system-dependent either ones or zeros).
+    unsigned int intsize = int_size(), result = -1;
 
-    // validate user input
-    if ( source >= pattern && n > 0 && n <= intsize )
+    if ( count > 0 && (start + count) < intsize )
     {
-        // slide the pattern from left to right through the source
-        for (int s = (intsize - n); result == -1 && s >= 0; --s)
-        {
-            search = pattern << s;    // shift pattern left by s bits
-
-            start = intsize - n - s;  // start comparison at this index
-            end = start + n - 1;      // end comparison at this index
-            hits = 0;                 // number of matching bits
-
-            // compare source and pattern bit-wise from left to right
-            for (int i = start ; i <= end; ++i)
-            {
-                if ( bit_test(source, i) == bit_test(search, i) )
-                    hits += 1;
-            }
-
-            printf("bits: %i-%i,\thits: %i\n", start, end, hits);
-
-            // report leftmost index, if we have a match
-            if ( hits == n )
-                result = start;
-        }
+        result = source >> (intsize - (start + count)); // truncate pattern on the right
+        result = rotate(result, intsize);               // rotate pattern to right-align
     }
 
     return result;
@@ -78,12 +72,11 @@ unsigned int bitpat_get(unsigned int source, int start, unsigned int count)
 
 int main(int argc, char const *argv[])
 {
-    unsigned int bit_test(unsigned int number, unsigned int bit);
     unsigned int int_size();
-    unsigned int bitpat_get(unsigned int source, unsigned int pattern, unsigned int n);
-    unsigned int source = 0xe1d4;   // 0000 0000 0000 0000 1110 0001 1101 0100
-    unsigned int pattern = 0x5;     // 0000 0000 0000 0000 0000 0000 0000 0101
-    printf("%i\n", bitpat_get(source, pattern, 3));
+    unsigned int bitpat_get(unsigned int source, int start, unsigned int count);
+    unsigned int number = 0xabcdef00u;          // 1010 1011 1100 1101 1110 1111 0000 0000
+    printf("%x\n", number);
+    printf("%x\n", bitpat_get(number, 0, 12));  // 0000 0000 0000 0000 0000 1010 1011 1100
 
     return 0;
 }
