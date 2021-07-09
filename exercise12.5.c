@@ -51,7 +51,7 @@ unsigned int bit_set(unsigned int number, unsigned int bit)
     unsigned int intsize = int_size();  // 32 bits, system dependent
     unsigned int bitmask = 0x0001u;     // minimum bit pattern, i.e. word
 
-    bitmask <<= (intsize - bit - 1);    // shift 1 to test bit position
+    bitmask <<= (intsize - bit - 1);    // shift 1 to set bit position
 
     return number | bitmask;
 }
