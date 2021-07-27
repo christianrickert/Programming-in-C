@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define MAX(a, b) ( (a) > (b) ? (a) : (b) )
-#define MAX3(a, b, c) ( MAX(a, b) > (c) ? MAX(a, b) : (c) )  // MAX(a, b) is only evaluated once
+#define MAX3(a, b, c) ( MAX(a, b) > (c) ? MAX(a, b) : (c) )
 
 int main(int argc, char const *argv[])
 {
