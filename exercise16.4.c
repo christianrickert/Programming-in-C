@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     // read both files until reaching both EOF
     while ( !feof(in) || !feof(and) )
     {
-        if ( fgets(outBuffer, 81, in) != NULL )
+        if ( fgets(outBuffer, 81, in) != NULL )  // don't read past end of file
             printf("%s\n", outBuffer);
         if ( fgets(outBuffer, 81, and) != NULL )
             printf("%s", outBuffer);
