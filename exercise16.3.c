@@ -8,7 +8,6 @@
 
 int main(int argc, char const *argv[])
 {
-    char inName[64], outName[64];
     FILE *in, *out;
     int c;
 
