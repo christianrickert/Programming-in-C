@@ -12,7 +12,6 @@ int main(int argc, char const *argv[])
     int c;
 
     // open input and output files
-
     if ( (in = fopen("infile.txt", "r")) == NULL )
     {
         printf("Can't open %s for reading.\n", "infile.txt");
